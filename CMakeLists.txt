@@ -24,7 +24,7 @@ include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
 CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
 if(COMPILER_SUPPORTS_CXX11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC")
 elseif(COMPILER_SUPPORTS_CXX0X)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 else()
@@ -40,6 +40,7 @@ add_definitions(-Wall)
 
 
 set(QTERMWIDGET_LIBRARY_NAME qtermwidget5)
+set(QTERMWIDGET_STATIC_LIBRARY_NAME qtermwidget5static)
 include(qtermwidget5_use)
 
 option(USE_UTF8PROC "Use libutf8proc for better Unicode support. Default OFF" OFF)
@@ -134,6 +135,7 @@ qt5_wrap_ui(UI_SRCS ${UI})
 set(PKG_CONFIG_REQ "Qt5Core, Qt5Xml, Qt5Widgets")
 
 add_library(${QTERMWIDGET_LIBRARY_NAME} SHARED ${SRCS} ${MOCS} ${UI_SRCS})
+add_library(${QTERMWIDGET_STATIC_LIBRARY_NAME} STATIC ${SRCS} ${MOCS} ${UI_SRCS})
 target_link_libraries(${QTERMWIDGET_LIBRARY_NAME} ${QTERMWIDGET_QT_LIBRARIES})
 set_target_properties( ${QTERMWIDGET_LIBRARY_NAME} PROPERTIES
                        SOVERSION ${QTERMWIDGET_VERSION_MAJOR}

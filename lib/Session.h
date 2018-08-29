@@ -410,7 +410,7 @@ signals:
     /**
      * Emitted when the terminal process exits.
      */
-    void finished();
+    void finished(int exitStatus);
 
     /**
      * Emitted when output is received from the terminal process.

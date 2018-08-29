@@ -303,7 +303,7 @@ void QTermWidget::init(int startnow)
     m_impl->m_session->addView(m_impl->m_terminalDisplay);
 
     connect(m_impl->m_session, SIGNAL(resizeRequest(QSize)), this, SLOT(setSize(QSize)));
-    connect(m_impl->m_session, SIGNAL(finished()), this, SLOT(sessionFinished()));
+    connect(m_impl->m_session, SIGNAL(finished(int)), this, SLOT(sessionFinished(int)));
     connect(m_impl->m_session, &Session::titleChanged, this, &QTermWidget::titleChanged);
 }
 
@@ -490,9 +490,9 @@ void QTermWidget::resizeEvent(QResizeEvent*)
 }
 
 
-void QTermWidget::sessionFinished()
+void QTermWidget::sessionFinished(int exitStatus)
 {
-    emit finished();
+    emit finished(exitStatus);
 }
 
 void QTermWidget::copyClipboard()

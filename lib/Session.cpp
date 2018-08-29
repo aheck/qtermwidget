@@ -201,7 +201,7 @@ void Session::addView(TerminalDisplay * widget)
     QObject::connect( widget ,SIGNAL(destroyed(QObject *)) , this ,
                       SLOT(viewDestroyed(QObject *)) );
 //slot for close
-    QObject::connect(this, SIGNAL(finished()), widget, SLOT(close()));
+    QObject::connect(this, SIGNAL(finished(int)), widget, SLOT(close()));
 
 }
 
@@ -554,7 +554,7 @@ void Session::close()
     _wantedClose = true;
     if (!_shellProcess->isRunning() || !sendSignal(SIGHUP)) {
         // Forced close.
-        QTimer::singleShot(1, this, SIGNAL(finished()));
+        QTimer::singleShot(1, this, SIGNAL(finished(0)));
     }
 }
 
@@ -604,7 +604,7 @@ void Session::done(int exitStatus)
         message.sprintf("Session '%s' exited unexpectedly.",
                         _nameTitle.toUtf8().data());
     else
-        emit finished();
+        emit finished(exitStatus);
 
 }
 

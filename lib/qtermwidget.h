@@ -225,7 +225,7 @@ public:
     bool isTitleChanged() const;
 
 signals:
-    void finished();
+    void finished(int exitStatus);
     void copyAvailable(bool);
 
     void termGetFocus();
@@ -286,7 +286,7 @@ protected:
     virtual void resizeEvent(QResizeEvent *);
 
 protected slots:
-    void sessionFinished();
+    void sessionFinished(int exitStatus);
     void selectionChanged(bool textSelected);
 
 private slots:
