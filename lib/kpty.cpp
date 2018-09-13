@@ -32,6 +32,11 @@
 #define HAVE_LIBUTIL_H
 #endif
 
+#if defined(__APPLE__)
+#define HAVE_OPENPTY
+#define HAVE_UTIL_H
+#endif
+
 #ifdef __sgi
 #define __svr4__
 #endif
@@ -216,7 +221,7 @@ bool KPty::open()
     if (::openpty( &d->masterFd, &d->slaveFd, ptsn, 0, 0)) {
         d->masterFd = -1;
         d->slaveFd = -1;
-        qWarning(175) << "Can't open a pseudo teletype";
+        qWarning() << "Can't open a pseudo teletype";
         return false;
     }
     d->ttyName = ptsn;
